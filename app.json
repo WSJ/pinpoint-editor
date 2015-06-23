@@ -1,0 +1,29 @@
+{
+  "name": "Pinpoint Editor",
+  "description": "Locator map tool",
+  "success_url": "/",
+  "scripts": {
+    "start": "node server.js",
+    "postdeploy": "psql $DATABASE_URL < build/migrate.sql"
+  },
+  "env": {
+    "AWS_BUCKET": {
+      "value": "",
+      "required": false,
+      "description": "Name of AWS S3 bucket to upload date files to"
+    },
+    "AWS_S3_KEY": {
+      "value": "",
+      "required": false,
+      "description": "AWS key"
+    },
+    "AWS_S3_SECRET": {
+      "value": "",
+      "required": false,
+      "description": "AWS secret"
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ]
+}
