@@ -51,6 +51,10 @@ Here's how to install it locally:
 
         psql $DATABASE_URL < build/migrate.sql
 
+    You may need to start the database server manually:
+
+        pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
 3. **Install dependencies**
 
         # Install server-side dependencies
@@ -126,5 +130,4 @@ These are used in all Pinpoint instances in the editor.
 **v1.0.0**
 
 - Initial release        
-
 
