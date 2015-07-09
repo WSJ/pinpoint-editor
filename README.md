@@ -1,6 +1,6 @@
 # Pinpoint Editor
 
-Pinpoint Editor is a web app for quickly creating and editing [Pinpoint maps](https://github.com/dowjones/pinpoint-library).
+Pinpoint Editor is a web app for quickly creating and editing [Pinpoint maps](https://github.com/dowjones/pinpoint).
 
 **Features:**
 
@@ -118,6 +118,10 @@ These are used in all Pinpoint instances in the editor.
 
 
 ## Version history
+
+**v1.0.1**
+
+- Update bower.json to allow any 1.0.* versions of Pinpoint library        
 
 **v1.0.0**
 
