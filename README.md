@@ -123,6 +123,12 @@ These are used in all Pinpoint instances in the editor.
 
 ## Version history
 
+**v1.1.0** (17 July, 2015)
+
+- Update bower.json to allow any 1.1.* versions of Pinpoint library        
+- Add .bowerrc to fix bower_components location
+- Add helpful error message if server port is in use
+
 **v1.0.1**
 
 - Update bower.json to allow any 1.0.* versions of Pinpoint library        

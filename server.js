@@ -19,7 +19,11 @@ app.use(function(req, res, next) {
 
 check(function(){
     require('./app/routes.js')(app);
-    app.listen(port);
+    app.listen(port).on('error', function(err) {
+        if (err.errno === 'EADDRINUSE') {
+            throw('Error: Port '+port+' is already in use, which means that Pinpoint is probably already running on this computer.');
+        }
+    });
     console.log("I'm on port " + port);
 });
 
