@@ -10,7 +10,6 @@ pinpointTool.directive('buttonGroup', function(){
         },
         template: '<div class="btn-group"></div>',
         link: function($scope, elm, attrs){
-            console.log(attrs.options);
             var $elm = $(elm);
             $.each($scope.options, function(i, o){
                 if ($scope.labels && $scope.labels[i]) {
@@ -18,7 +17,6 @@ pinpointTool.directive('buttonGroup', function(){
                 } else {
                     var label = o;
                 }
-                console.log(label)
                 $elm.append('<button type="button" data-val="'+o+'" class="btn btn-default">'+label+'</button>');
             });
             $elm.find('.btn[data-val="'+$scope.value+'"]').addClass('active');

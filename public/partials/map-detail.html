@@ -115,7 +115,13 @@
                     <label>Map shape: </label>
                     <button-group options="aspectRatios" value="map.aspectRatio"></button-group>
                 </div>
-                                
+                   
+               <div class="form-group" ng-if="config.basemaps">
+                   <label>Map style: </label>
+                   <button-group options="basemapNames" value="basemap" class="basemap-selector"></button-group>
+				   
+               </div>
+				                								
 
                 
             </div></div>

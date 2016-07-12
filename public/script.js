@@ -58,6 +58,11 @@ pinpointTool.controller('mapDetailCtrl',
     $scope.aspectRatios = ['wide','square','tall'];
     $scope.pickedLocation = {};
     $scope.config = configService;
+    var basemaps = $scope.config.basemaps;
+    $scope.basemapNames = basemaps.map(function(d,i) { return d.name });
+    if (basemaps[0]) {
+        $scope.basemap = basemaps[0].name;
+    }
         
     if ($scope.mapId === 'new') {
         $scope.map = $.extend({}, mapDefaults.map);
@@ -77,6 +82,17 @@ pinpointTool.controller('mapDetailCtrl',
     }
 
     $scope.$watch(function() {
+        
+        // This is a horribly ugly hack, but I am at my wit's end
+        var selectedBasemapName = $('.basemap-selector .btn.active').text();
+        
+        if ((selectedBasemapName !== '') && ($scope.map !== undefined)) {
+            var selectedBasemap = basemaps.filter(function(basemap) {
+                return basemap.name === selectedBasemapName;
+            })[0];
+            $scope.map.basemap = selectedBasemap.url;
+            $scope.map.basemapCredit = selectedBasemap.credit;
+        }
         if ($scope.map) {
             $scope.map = dataWrangler.onWatch($scope.map);
             $scope.cleanMap = JSON.stringify( dataWrangler.cleanMapObj($scope.map), null, 2 );
@@ -240,14 +256,12 @@ pinpointTool.controller('mapDetailCtrl',
 }]);
 
 
-pinpointTool.factory('mapHelper', ['configService', function(configService) {
+pinpointTool.factory('mapHelper', [function() {
     var p;
     var build = function(opts, dragend, zoomend, markerdragend){
         opts.dragend = dragend;
         opts.zoomend = zoomend;
         opts.markerdragend = markerdragend;
-        opts.basemap = configService.basemap;
-        opts.basemapCredit = configService.basemapCredit;
         
         $('.map-outer.inactive').html('<div id="map"></div>');
         if (typeof p !== 'undefined') {
@@ -408,6 +422,12 @@ pinpointTool.factory('dataWrangler', ['mapHelper', 'markerStyles', function(mapH
             m['label-direction'] = m['label-direction'] || m.labelDirections[0];
             scope.map.markers[i] = m;
         });
+        
+        if (scope.map.basemap) {
+            scope.basemap = scope.config.basemaps.filter(function(b) {
+                return b.url === scope.map.basemap;
+            })[0];
+        }
         
         return scope;
         

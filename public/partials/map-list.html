@@ -22,7 +22,7 @@
 	    <div ng-repeat="(i, map) in maps" class="col-md-4">
 	        <a href="/#/maps/{{map.id}}" class="thumbnail">
 	            <!-- <div class="prevmap" id="prevmap-{{i}}"></div> -->
-	            <map-rough-preview lat="{{map.lat}}" lon="{{map.lon}}" zoom="{{map.zoom}}"></map-rough-preview>
+	            <map-rough-preview lat="{{map.lat}}" lon="{{map.lon}}" zoom="{{map.zoom}}" basemap="{{map.basemap}}"></map-rough-preview>
 	            <div class="caption">
 	                <h4 ng-if="map.hed">{{map.hed}} <small>{{map.slug}}</small></h4>
 	                <h4 ng-if="!map.hed">{{map.slug}}</h4>
