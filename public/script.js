@@ -444,10 +444,18 @@ pinpointTool.controller('mapListCtrl',
     $scope.changeView = function(){
         $scope.listView = !$scope.listView;
     }
+    $scope.maps = [];
+    $scope.allMaps = [];
     $http.get('/api/maps').success(function(data) {
-        $scope.maps = data;
-        $scope.maps = $filter('orderBy')($scope.maps, 'creation_date', true);
+        $scope.allMaps = $filter('orderBy')(data, 'creation_date', true);;
+        $scope.loadMore();
     });
+    
+    var numberToLoadEachTime = 10; 
+    $scope.loadMore = function() {
+        $scope.maps = $scope.allMaps.slice(0, $scope.maps.length + numberToLoadEachTime);
+        $scope.hideLoadMore = ($scope.maps.length === $scope.allMaps.length);
+    }
         
     $scope.previewLink = function(map){
         if (map['aspect-ratio'] === 'wide') {
