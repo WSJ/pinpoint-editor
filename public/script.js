@@ -396,7 +396,8 @@ pinpointTool.factory('dataWrangler', ['mapHelper', 'markerStyles', function(mapH
         if (typeof scope.map.minimapZoomOffset !== 'number')  {
             scope.map.minimapZoomOffset = -5;
         }
-            
+        
+        scope.map.markers = scope.map.markers || [];
         $.each(scope.map.markers, function(i,m){
             if (m.lat && m.lon) {
                 m.latLonString = m.lat + ',' + m.lon;
