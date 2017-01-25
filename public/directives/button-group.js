@@ -27,6 +27,9 @@ pinpointTool.directive('buttonGroup', function(){
                 var val = $this.attr('data-val');
                 $scope.value = val;
                 $scope.$apply();
+                setTimeout(function() {
+                    $scope.$apply();
+                },50);
             });
         }
     }

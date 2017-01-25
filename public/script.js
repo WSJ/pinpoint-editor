@@ -58,8 +58,10 @@ pinpointTool.controller('mapDetailCtrl',
     $scope.aspectRatios = ['wide','square','tall'];
     $scope.pickedLocation = {};
     $scope.config = configService;
-    var basemaps = $scope.config.basemaps;
-    $scope.basemapNames = basemaps.map(function(d,i) { return d.name });
+    var basemaps = [];
+    if ('basemaps' in $scope.config) {
+        $scope.basemapNames = basemaps.map(function(d,i) { return d.name });    
+    }
     if (basemaps[0]) {
         $scope.basemap = basemaps[0].name;
     }
@@ -423,7 +425,7 @@ pinpointTool.factory('dataWrangler', ['mapHelper', 'markerStyles', function(mapH
             scope.map.markers[i] = m;
         });
         
-        if (scope.map.basemap) {
+        if (scope.map.basemap && scope.config.basemaps) {
             scope.basemap = scope.config.basemaps.filter(function(b) {
                 return b.url === scope.map.basemap;
             })[0];
