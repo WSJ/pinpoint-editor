@@ -3,6 +3,7 @@ var _          = require('lodash');
 var fs         = require('fs');
 var knox       = require('knox');
 var config     = require('../config');
+config.version = require('../package.json').version;
 var pug        = require('pug');
 
 var pg = require('knex')({
