@@ -462,7 +462,8 @@ pinpointTool.factory('dataWrangler', ['mapHelper', 'markerStyles', function(mapH
 /////////////////
 
 pinpointTool.controller('mapListCtrl',
-  ['$scope', '$http', '$location', '$filter', 'configService', function ($scope, $http, $location, $filter, configService) {
+  ['$scope', '$http', '$location', '$filter', '$sce', 'configService', function ($scope, $http, $location, $filter, $sce, configService) {
+    $scope.config = configService;
     $scope.listView = false;
     $scope.changeView = function(){
         $scope.listView = !$scope.listView;
@@ -496,8 +497,9 @@ pinpointTool.controller('mapListCtrl',
     
 }]);
 
-
-
-
-
+pinpointTool.filter('html', function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+});
 

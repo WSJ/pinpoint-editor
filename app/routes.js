@@ -3,6 +3,7 @@ var _          = require('lodash');
 var fs         = require('fs');
 var knox       = require('knox');
 var config     = require('../config');
+var pug        = require('pug');
 
 var pg = require('knex')({
 	client: 'pg',
@@ -18,11 +19,11 @@ if (process.env.AWS_S3_KEY) {
 }
 
 module.exports = function(app) {
+
+    var indexPage = pug.compileFile('./app/index.pug')(config);
     
 	app.get('/', function(req, res, next) {
-        var html = fs.readFileSync('./public/index.html', 'utf8');
-        html = html.replace('GOOGLE_MAPS_API_KEY_HERE', config.googleMapsAPIKey);
-        res.send(html);
+        res.send(indexPage);
         next();
 	});
 

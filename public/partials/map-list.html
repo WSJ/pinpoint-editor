@@ -1,12 +1,13 @@
 <div class="container">
 
 <div class="page-header">
-  <h2>Pinpoint Editor 
+  <h2>{{config.title}} 
       <div class="btn btn-default viewToggle" ng-click="changeView()">
           <span ng-if="listView">Expanded view</span>
           <span ng-if="!listView">List view</span>
       </div>
-</h2>
+  </h2>
+  <p ng-bind-html="config.greeting | html"></p>
 </div>
 
 <div ng-if="!listView">

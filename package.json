@@ -15,7 +15,8 @@
     "lodash": "^3.1.0",
     "moment": "^2.9.0",
     "morgan": "~1.2.2",
-    "pg": "^4.2.0"
+    "pg": "^4.2.0",
+    "pug": "^2.0.0-beta10"
   },
   "devDependencies": {
     "karma": "~0.12.31",

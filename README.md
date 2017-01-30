@@ -105,6 +105,8 @@ Various settings are controlled via `config.json`. See `config-example.json` for
 **Editor interface options**
 
 * googleMapsAPIKey: _(required)_ Google maps API key ([get one here](https://developers.google.com/maps/documentation/javascript/tutorial))
+* title: Page title, e.g. _The Example Journal Map Tool_
+* greeting: Message to go beneath page title. HTML is allowed.
 * helpLink: URL of an external help page
 * previewLink: URL which, with the current map's slug on the end, links to a preview
 * liveLink: URL which, with the current map's slug on the end, links to the live production page for the current map
