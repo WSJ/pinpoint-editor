@@ -65,7 +65,7 @@ Here's how to install it locally:
 
 4. **Configure settings**
 
-    Generate a new Google Maps API key by [following these instructions](https://developers.google.com/maps/documentation/javascript/tutorial) and paste it into the relevant script tag in `public/index.html`.
+    Generate a new Google Maps API key by [following these instructions](https://developers.google.com/maps/documentation/javascript/tutorial) and add it to `config.json` (under the `googleMapsAPIKey` property).
     
     *Optional:* To enable AWS S3 export, set these environment variables:
 
@@ -104,6 +104,7 @@ Various settings are controlled via `config.json`. See `config-example.json` for
 
 **Editor interface options**
 
+* googleMapsAPIKey: _(required)_ Google maps API key ([get one here](https://developers.google.com/maps/documentation/javascript/tutorial))
 * helpLink: URL of an external help page
 * previewLink: URL which, with the current map's slug on the end, links to a preview
 * liveLink: URL which, with the current map's slug on the end, links to the live production page for the current map

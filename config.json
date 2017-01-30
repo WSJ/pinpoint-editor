@@ -12,5 +12,6 @@
             "class": "dashed-anticlockwise",
             "name": "Dashed, animated anticlockwise"
         }
-    ]    
+    ],
+    "googleMapsAPIKey": "REPLACE WITH API KEY"
 }

@@ -1,13 +1,17 @@
 module.exports = function( callback ){
     var fs = require('fs');
-    var config = fs.readFileSync('config.json', 'utf8');
-    if (!testJSON(config)) {
+    var configStr = fs.readFileSync('config.json', 'utf8');
+    if (!testJSON(configStr)) {
         throw('Error: config.json is missing or invalid.');
     }
 
-    var indexFile = fs.readFileSync('public/index.html', 'utf8');
-    if (indexFile.indexOf('key=YOUR_API_KEY_HERE') > -1) {
-        throw('Error: You need to add a Google Maps API key to index.html');
+    var config = JSON.parse(configStr);
+
+    if (
+        (config.googleMapsAPIKey === 'REPLACE WITH API KEY') ||
+        (config.googleMapsAPIKey === undefined)
+    ) {
+        throw('Error: You need to add a Google Maps API key to config.json');
     }
     
     if (!process.env.DATABASE_URL) {
