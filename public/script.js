@@ -60,7 +60,7 @@ pinpointTool.controller('mapDetailCtrl',
     $scope.config = configService;
     var basemaps = [];
     if ('basemaps' in $scope.config) {
-        $scope.basemapNames = basemaps.map(function(d,i) { return d.name });    
+        $scope.basemapNames = $scope.config.basemaps.map(function(d,i) { return d.name });    
     }
     if (basemaps[0]) {
         $scope.basemap = basemaps[0].name;
@@ -88,14 +88,16 @@ pinpointTool.controller('mapDetailCtrl',
         // This is a horribly ugly hack, but I am at my wit's end
         var selectedBasemapName = $('.basemap-selector .btn.active').text();
         
-        if ((selectedBasemapName !== '') && ($scope.map !== undefined)) {
-            var selectedBasemap = basemaps.filter(function(basemap) {
-                return basemap.name === selectedBasemapName;
-            })[0];
-            $scope.map.basemap = selectedBasemap.url;
-            $scope.map.basemapCredit = selectedBasemap.credit;
-        }
         if ($scope.map) {
+            if ((selectedBasemapName !== '') && ($scope.map !== undefined)) {
+                var selectedBasemap = $scope.config.basemaps.filter(function(basemap) {
+                    return basemap.name === selectedBasemapName;
+                })[0];
+                $scope.map.basemap = selectedBasemap.url;
+                $scope.map.basemapCredit = selectedBasemap.credit;
+            } else if (!$scope.map.basemap && $scope.config.basemaps.length) {
+                $scope.map.basemap = $scope.config.basemaps[0].url;
+            }
             $scope.map = dataWrangler.onWatch($scope.map);
             $scope.cleanMap = JSON.stringify( dataWrangler.cleanMapObj($scope.map), null, 2 );
             $scope.pinpoint = mapHelper.buildPreview($scope.map, changeMap, changeMap, changeMarker);
