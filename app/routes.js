@@ -1,23 +1,15 @@
 var moment     = require('moment');
 var _          = require('lodash');
 var fs         = require('fs');
-var knox       = require('knox');
 var config     = require('../config');
 config.version = require('../package.json').version;
 var pug        = require('pug');
+var s3         = require('./s3');
 
 var pg = require('knex')({
 	client: 'pg',
 	connection: process.env.DATABASE_URL
 });
-
-if (process.env.AWS_S3_KEY) {
-    var s3 = knox.createClient({
-        key: process.env.AWS_S3_KEY,
-        secret: process.env.AWS_S3_SECRET,
-        bucket: process.env.AWS_BUCKET
-    });
-}
 
 module.exports = function(app) {
 
@@ -29,9 +21,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/config.json', function(req, res) {
-        if (process.env.AWS_S3_KEY) {
-            config.s3enabled = true;
-        }
+        config.s3enabled = s3.enabled();
 		res.json( config );
 	});
 
@@ -126,14 +116,8 @@ module.exports = function(app) {
 		pg('locator_map')
 			.where('id', id)
 			.then(function(rows) {
-
 				var slug = rows[0].data.slug;
-
-				s3.del(location + '/locator-maps/' + slug + '.json')
-					.on('response', function(res){
-						// 
-					}).end();
-
+                s3.remove(slug);
 				return pg('locator_map').where('id', id).del();
 			})
 			.then(function(response) {
@@ -182,30 +166,20 @@ function process_publish(id, location, res){
 		.where('id', id)
 		.then(function(rows) {
 			var rows   = parse_data(rows);
-			var string = JSON.stringify(rows[0]);
 			var slug   = rows[0].slug;
 			var file   = location + '/locator-maps/' + slug + '.json';
-			
-			var publish   = s3.put(file, {
-			    'Content-Length': Buffer.byteLength(string),
-				'Content-Type': 'application/json',
-				'x-amz-acl': 'public-read'
-			});
-
-			publish.on('response', function(response){
-				if (200 == response.statusCode) {
+            
+            s3.upload(slug, rows[0])
+                .then(() => {
 					res.json({
 						message : "Map published",
 						url: 'http://'+process.env.AWS_BUCKET+'.s3.amazonaws.com/' + file
 					});
-				} else {
+                })
+                .catch(() => {
 					res.status(404).json({error: "Error saving map to S3"});
-				}
-			});
-
-			publish.end(string);
-
-		})
+                });
+		});
 		.catch(function(error) {
 			res.json({error: error});
 		});
