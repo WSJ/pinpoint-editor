@@ -126,6 +126,13 @@ These are used in all Pinpoint instances in the editor.
 
 ## Version history
 
+**v1.2.0** (17 February, 2017)
+
+- New feature: basemap selection
+- Google maps API key controlled via config.json
+- Easier customisation of interface text via config.json
+- Add pagination to homepage
+
 **v1.1.0** (17 July, 2015)
 
 - Update bower.json to allow any 1.1.* versions of Pinpoint library        
