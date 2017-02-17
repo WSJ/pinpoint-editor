@@ -218,6 +218,10 @@ pinpointTool.controller('mapDetailCtrl',
     $scope.publish = function(){
         var dirty = JSON.parse(JSON.stringify($scope.map));
         var clean = dataWrangler.cleanMapObj(dirty);
+        if ($scope.mapId !== 'new') {
+            clean.id = +$scope.mapId;
+        }
+
     $http
         .post('/api/publish/', clean)
         .success(function(e,r){

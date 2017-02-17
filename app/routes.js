@@ -145,7 +145,6 @@ module.exports = function(app) {
 	app.post('/api/publish', function(req, res) {
 		var id = req.body.id;
 		var location = 'projects';
-		
 		process_publish(id, location, res);
 	});
 
@@ -179,7 +178,7 @@ function process_publish(id, location, res){
                 .catch(() => {
 					res.status(404).json({error: "Error saving map to S3"});
                 });
-		});
+		})
 		.catch(function(error) {
 			res.json({error: error});
 		});
