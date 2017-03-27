@@ -156,7 +156,7 @@ pinpointTool.controller('mapDetailCtrl',
        window.onbeforeunload = undefined;
     });
     $scope.$on('$locationChangeStart', function(event, next, current) {
-        if (!$scope.$$childHead.mapform.$pristine && !$scope.bypassSaveDialog) {
+        if ($scope.$$childHead.mapform && !$scope.$$childHead.mapform.$pristine && !$scope.bypassSaveDialog) {
             if(!confirm("Leave page without saving?")) {
                 event.preventDefault();
             }
@@ -188,7 +188,10 @@ pinpointTool.controller('mapDetailCtrl',
         $scope.map.markers.push( newMarker );
     }
         
-    $scope.save = function(){
+    $scope.save = function(valid){
+        if (valid === false) {
+            return;
+        }
         $scope.saving = true;
         var dirty = JSON.parse(JSON.stringify($scope.map));
         var clean = dataWrangler.cleanMapObj(dirty);
@@ -198,7 +201,9 @@ pinpointTool.controller('mapDetailCtrl',
                 .put('/api/maps/'+$scope.mapId, clean)
                 .success(function(){
                     $scope.saving = false;
-                    $scope.$$childHead.mapform.$setPristine();
+                    if ($scope.$$childHead.mapform) {
+                        $scope.$$childHead.mapform.$setPristine();
+                    }
                 });
         } else {
             // create a new map
@@ -215,7 +220,10 @@ pinpointTool.controller('mapDetailCtrl',
             $scope.publish();
         }
     }
-    $scope.publish = function(){
+    $scope.publish = function(valid){
+        if (valid === false) {
+            return;
+        }
         var dirty = JSON.parse(JSON.stringify($scope.map));
         var clean = dataWrangler.cleanMapObj(dirty);
         if ($scope.mapId !== 'new') {

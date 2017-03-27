@@ -13,6 +13,9 @@
 				if ($scope.state === 'update') return;
 
 				function validate(value) {
+                    if ($scope.slug === '') {
+                        ngModel.$setValidity('unique', false);
+                    }
 					if ($scope.map.id || ($scope.slug && $scope.slug.indexOf(ngModel.$viewValue) === -1)) {
 						ngModel.$setValidity('unique', true);
 					} else {

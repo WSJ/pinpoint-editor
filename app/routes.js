@@ -22,6 +22,7 @@ module.exports = function(app) {
 
 	app.get('/config.json', function(req, res) {
         config.s3enabled = s3.enabled();
+        config.basemaps = config.basemaps || [];
 		res.json( config );
 	});
 
