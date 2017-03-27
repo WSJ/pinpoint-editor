@@ -126,6 +126,10 @@ These are used in all Pinpoint instances in the editor.
 
 ## Version history
 
+**v1.2.1** (27 March, 2017)
+
+- Bugfixes for editor interface
+
 **v1.2.0** (17 February, 2017)
 
 - New feature: basemap selection
