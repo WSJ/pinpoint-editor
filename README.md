@@ -79,6 +79,11 @@ Here's how to install it locally:
 
     You will then be able to access Pinpoint at [http://localhost:3001](http://localhost:3001/).
 
+## Docker setup
+
+If you have Docker installed you can run the Pinpoint editor by simply typing `docker-compose up`. You can
+then access Pinpoint at [http://localhost:3001](http://localhost:3001/).
+
 ## Architecture
 
 On the server, Pinpoint uses the minimal Express framework for routing. Data is stored as JSON using [PostgresSQL's native JSON data type](http://schinckel.net/2014/05/25/querying-json-in-postgres/), which can then be accessed via a simple API (see below for details). Data can then be exported to S3-hosted static JSON for production use.
