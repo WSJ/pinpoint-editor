@@ -1,0 +1,12 @@
+version: '3'
+services:
+    postgres:
+        build:
+            context: .
+            dockerfile: ./Dockerfile.postgres
+    pinpoint:
+        build: .
+        environment:
+            - DATABASE_URL=postgresql://postgres@postgres/postgres
+        ports:
+            - "3001:3001"
