@@ -1,3 +1,5 @@
+Note: As of 2021, this tool has been deprecated and the repository is no longer being maintained.
+
 # Pinpoint Editor
 
 Pinpoint Editor is a web app for quickly creating and editing [Pinpoint maps](https://github.com/dowjones/pinpoint).
@@ -27,7 +29,7 @@ Here's how to install it locally:
 
         # Install Brew
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    
+
         # Install NodeJS.
         brew install node
 
@@ -42,11 +44,11 @@ Here's how to install it locally:
     Create a PostgresSQL database. You can name it anything you like.
 
         createdb pinpointDb
-    
+
     Set `DATABASE_URL` environment variable.
-    
+
         export DATABASE_URL='postgresql://localhost/pinpointDb'
-    
+
     Run migration script to set up table and load examples.
 
         psql $DATABASE_URL < build/migrate.sql
@@ -59,20 +61,20 @@ Here's how to install it locally:
 
         # Install server-side dependencies
         npm install
-    
+
         # Install client-side dependencies
         bower install
 
 4. **Configure settings**
 
     Generate a new Google Maps API key by [following these instructions](https://developers.google.com/maps/documentation/javascript/tutorial) and add it to `config.json` (under the `googleMapsAPIKey` property).
-    
+
     *Optional:* To enable AWS S3 export, set these environment variables:
 
         export AWS_S3_KEY='XXXXXXXXXXXXXX'
         export AWS_S3_SECRET='XXXXXXXXXXXXXX'
         export AWS_BUCKET='XXXXXXXXXXXXXX'
-    
+
 5. **Run the server!**
 
         node server.js
@@ -102,7 +104,7 @@ On the client, Pinpoint is an Angular app made up of multiple custom directives.
 	* http request header must be `Content-Type: application/json`
     * http request body contains the entire data object for that record
     * returns `HTTP/1.1 200 OK - {"message": "Map updated"}`
-    
+
 ## Configuration file
 
 Various settings are controlled via `config.json`. See `config-example.json` for dummy values.
@@ -117,7 +119,7 @@ Various settings are controlled via `config.json`. See `config-example.json` for
 * liveLink: URL which, with the current map's slug on the end, links to the live production page for the current map
 * s3url: URL which, with the current map's slug (and ".json") on the end, links to the S3-hosted static JSON
 * geojsonStyles: Array
-    * Object 
+    * Object
         * class: css class for style (string) - eg. "dashed-clockwise"
         * name: descriptive name for style (string) - eg. "Dashed, animated clockwise"
 
@@ -144,15 +146,14 @@ These are used in all Pinpoint instances in the editor.
 
 **v1.1.0** (17 July, 2015)
 
-- Update bower.json to allow any 1.1.* versions of Pinpoint library        
+- Update bower.json to allow any 1.1.* versions of Pinpoint library
 - Add .bowerrc to fix bower_components location
 - Add helpful error message if server port is in use
 
 **v1.0.1**
 
-- Update bower.json to allow any 1.0.* versions of Pinpoint library        
+- Update bower.json to allow any 1.0.* versions of Pinpoint library
 
 **v1.0.0**
 
-- Initial release        
-
+- Initial release
